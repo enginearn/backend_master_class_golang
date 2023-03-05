@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+      app:
+        image: "postgres:latest"
+        build:
+          context: .
+          dockerfile: Dockerfile
+        ports:
+          - "23450:5432"
+        volumes:
+          - .:/app
+        working_dir: /app
+        entrypoint: >
+          psql -h localhost -p 5432 -U postgres -c "CREATE DATABASE simple_bank;"
+        environment:
+          - NODE_ENV=development
+          - PORT=5432
+          - HOST=localhost
+          - DB_USER=postgres
+          - DB_PASS=postgres
+          - DB_NAME="simple bank"
+          - DB_HOST=localhost
+          - DB_PORT=5432
+          - DB_DIALECT=postgres
+          - DB_SSL=false
+          - DB_LOGGING=false
+          - JWT_SECRET=secret
+          - JWT_EXPIRATION=24h
+          - JWT_REFRESH_EXPIRATION=30d
+          - JWT_RESET_PASSWORD_EXPIRATION=10m
+          - JWT_VERIFY_EMAIL_EXPIRATION=10m
+
